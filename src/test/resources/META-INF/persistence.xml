@@ -14,20 +14,29 @@
         <class>canchas.JugadorAmateur</class>
         <class>canchas.JugadorProfesional</class>
         <class>canchas.JugadorSemiProfesional</class>
+        <class>canchas.Cancha</class>
+        <class>canchas.Reserva</class>
+        <class>canchas.Inscripcion</class>
+        <class>canchas.Fabricante</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" /> 
-            <property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:5432/postgres" /> 
-            <property name="hibernate.connection.username" value="postgres" /> 
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver" /> 
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/canchaspaddle?serverTimezone=EST5EDT" /> 
+            <property name="hibernate.connection.username" value="root" /> 
             <property name="hibernate.connection.password" value="QWE123qwe!" /> 
 
 <!--             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver" />  -->
 <!--             <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db" />  -->
 <!--             <property name="hibernate.connection.username" value="sa" />  -->
 <!--             <property name="hibernate.connection.password" value="" />  -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            
+<!-- 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />  -->
+<!--             <property name="hibernate.connection.url" value="jdbc:postgresql://127.0.0.1:5432/postgres" />  -->
+<!--             <property name="hibernate.connection.username" value="postgres" />  -->
+<!--             <property name="hibernate.connection.password" value="QWE123qwe!" />  -->
+<!--             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
                             
             <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 

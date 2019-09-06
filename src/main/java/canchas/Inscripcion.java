@@ -1,15 +1,37 @@
 package canchas;
 
-public class Inscripcion {
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
-  private Long inscripcionId;
+@Entity
+public class Inscripcion extends PersistentEntity {
 
-  private Paleta paleta;
+	@OneToOne
+	private Paleta paleta;
 
-  private Jugador jugador;
+	@OneToOne
+	private Jugador jugador;
+	
+	public Inscripcion() {}
 
-  public Inscripcion(Jugador jugador, Paleta paleta) {
-    this.jugador = jugador;
-    this.paleta = paleta;
-  }
+	public Inscripcion(Jugador jugador, Paleta paleta) {
+		this.jugador = jugador;
+		this.paleta = paleta;
+	}
+
+	public Paleta getPaleta() {
+		return paleta;
+	}
+
+	public void setPaleta(Paleta paleta) {
+		this.paleta = paleta;
+	}
+
+	public Jugador getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
 }

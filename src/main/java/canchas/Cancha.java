@@ -4,22 +4,26 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-public class Cancha {
-
-	private Long id;
+@Entity
+public class Cancha extends PersistentEntity {
 
 	private String nombre;
 
 	private Boolean tieneIluminacion;
 
+	@JoinColumn(name="canchaId")
+	@OneToMany
 	private Collection<Reserva> reservas = new ArrayList<Reserva>();
 
+	@OneToOne
 	private Color color;
-	
-	public Cancha(){
-		super();
-	}
+
+	public Cancha() {}
 
 	public Cancha(String nombre) {
 		this.nombre = nombre;
@@ -29,13 +33,11 @@ public class Cancha {
 		this.nombre = nombre;
 		this.setColor(color);
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setCanchaId(Long canchaId) {
-		this.id = canchaId;
+	
+	public Cancha(String nombre, Color color, Boolean tieneLuces) {
+		this.nombre = nombre;
+		this.setColor(color);
+		this.setTieneIluminacion(tieneLuces);
 	}
 
 	public Color getColor() {
@@ -43,18 +45,34 @@ public class Cancha {
 	}
 
 	public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-	
+		this.nombre = nombre;
+	}
+
+	public Collection<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(Collection<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
-  public void reservar(LocalDateTime inicioReserva, Collection<Jugador> jugadores) {
-    reservas.add(new GeneradorReserva()
-      .inicioReserva(inicioReserva)
-      .jugadores(jugadores)
-      .cancha(this)
-      .build());
-  }
+	public void reservar(LocalDateTime inicioReserva, Collection<Jugador> jugadores) {
+		reservas.add(new GeneradorReserva().inicioReserva(inicioReserva).jugadores(jugadores).cancha(this).build());
+	}
+
+	public Boolean getTieneIluminacion() {
+		return tieneIluminacion;
+	}
+
+	public void setTieneIluminacion(Boolean tieneIluminacion) {
+		this.tieneIluminacion = tieneIluminacion;
+	}
 }

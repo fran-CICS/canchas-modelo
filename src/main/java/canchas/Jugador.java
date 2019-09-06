@@ -9,75 +9,75 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "categoria")
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="categoria")
-public abstract class Jugador extends PersistentEntity{
-	
+public abstract class Jugador extends PersistentEntity {
+
 	public Jugador() {}
-	
-  private String nombre;
-  
-  private String apellido;
-  
-  private String domicilio;
-  
-  private String telefono;
-  
-  private Date fechaNacimiento;
 
-  @OneToOne(cascade= {CascadeType.PERSIST})
-  private Paleta paleta;
+	private String nombre;
 
-  public Inscripcion crearInscripcion() {
-    return new Inscripcion(this, this.paleta);
-  }
+	private String apellido;
 
-public String getNombre() {
-	return nombre;
-}
+	private String domicilio;
 
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	private String telefono;
 
-public String getApellido() {
-	return apellido;
-}
+	private Date fechaNacimiento;
 
-public void setApellido(String apellido) {
-	this.apellido = apellido;
-}
+	@OneToOne(cascade = { CascadeType.PERSIST })
+	private Paleta paleta;
 
-public String getDomicilio() {
-	return domicilio;
-}
+	public Inscripcion crearInscripcion() {
+		return new Inscripcion(this, this.paleta);
+	}
 
-public void setDomicilio(String domicilio) {
-	this.domicilio = domicilio;
-}
+	public String getNombre() {
+		return nombre;
+	}
 
-public String getTelefono() {
-	return telefono;
-}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-public void setTelefono(String telefono) {
-	this.telefono = telefono;
-}
+	public String getApellido() {
+		return apellido;
+	}
 
-public Date getFechaNacimiento() {
-	return fechaNacimiento;
-}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 
-public void setFechaNacimiento(Date fechaNacimiento) {
-	this.fechaNacimiento = fechaNacimiento;
-}
+	public String getDomicilio() {
+		return domicilio;
+	}
 
-public Paleta getPaleta() {
-	return paleta;
-}
-  
-public void setPaleta(Paleta paletaB) {
-	this.paleta = paletaB;
-}
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Paleta getPaleta() {
+		return paleta;
+	}
+
+	public void setPaleta(Paleta paletaB) {
+		this.paleta = paletaB;
+	}
 }

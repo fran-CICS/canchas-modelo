@@ -9,4 +9,6 @@ public class RepositorioCancha {
 	public Cancha obtenerCancha(Long canchaId){
 		return null;
 	}
+	
+	//TODO buscar cancha a partir de un horario
 }
