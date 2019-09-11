@@ -6,8 +6,8 @@ import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Cancha extends PersistentEntity {
@@ -20,7 +20,7 @@ public class Cancha extends PersistentEntity {
 	@OneToMany
 	private Collection<Reserva> reservas = new ArrayList<Reserva>();
 
-	@OneToOne
+	@ManyToOne
 	private Color color;
 
 	public Cancha() {}

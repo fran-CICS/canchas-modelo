@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -75,11 +76,11 @@ public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEn
 		});
 	}
 
-	private List<Jugador> dosJugadores(Jugador jugadorAmateurCarlosLocalVar,
-			Jugador jugadorSemiProfesionalGallegoLocalVar) {
+	private List<Jugador> dosJugadores(Jugador jugador1,
+			Jugador jugador2) {
 		List<Jugador> jugadoresCarlosVsGallego=new ArrayList<Jugador>();
-		jugadoresCarlosVsGallego.add(jugadorAmateurCarlosLocalVar);
-		jugadoresCarlosVsGallego.add(jugadorSemiProfesionalGallegoLocalVar);
+		jugadoresCarlosVsGallego.add(jugador1);
+		jugadoresCarlosVsGallego.add(jugador2);
 		return jugadoresCarlosVsGallego;
 	}
 
@@ -141,8 +142,10 @@ public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEn
 	}
 	
 	@Test
-	public void testReservaCorrecta() {
-		
+	public void testEnQueCanchasEstuvoUnJugador() {
+		List<Cancha> canchasEnLasQueEstuvo=jugadorAmateurCarlos.enQueCanchasEstuvo();
+		Assert.assertTrue(!canchasEnLasQueEstuvo.isEmpty());
+		Assert.assertEquals(solanoStadiumConLuz.getNombre(), canchasEnLasQueEstuvo.get(0).getNombre());
 	}
 
 }
