@@ -24,6 +24,7 @@ import canchas.JugadorAmateur;
 import canchas.JugadorProfesional;
 import canchas.JugadorSemiProfesional;
 import canchas.Paleta;
+import canchas.RepositorioCancha;
 import canchas.Reserva;
 
 public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
@@ -122,7 +123,7 @@ public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEn
 		List<Jugador> jugadoresBrazucaVsGallego = dosJugadores(jugadorProfesionalBrazuca,
 				jugadorSemiProfesionalGallego);
 		
-		reservaPrevia=new GeneradorReserva()
+		new GeneradorReserva()
 				.inicioReserva(LocalDateTime.of(2019, Month.FEBRUARY, 20, 18, 30))
 				.jugadores(jugadoresBrazucaVsGallego)
 				.cancha(solanoStadiumConLuz)
@@ -134,7 +135,7 @@ public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEn
 		List<Jugador> jugadoresCarlosVsGallego = dosJugadores(jugadorAmateurCarlos,
 				jugadorSemiProfesionalGallego);
 		
-		reservaPrevia=new GeneradorReserva()
+		new GeneradorReserva()
 				.inicioReserva(LocalDateTime.of(2019, Month.FEBRUARY, 20, 18, 30))
 				.jugadores(jugadoresCarlosVsGallego)
 				.cancha(paddleLaPazSinLuz)
@@ -142,10 +143,25 @@ public class JugadorTest extends AbstractPersistenceTest implements WithGlobalEn
 	}
 	
 	@Test
-	public void testEnQueCanchasEstuvoUnJugador() {
-		List<Cancha> canchasEnLasQueEstuvo=jugadorAmateurCarlos.enQueCanchasEstuvo();
-		Assert.assertTrue(!canchasEnLasQueEstuvo.isEmpty());
-		Assert.assertEquals(solanoStadiumConLuz.getNombre(), canchasEnLasQueEstuvo.get(0).getNombre());
+	public void testQueJugadoresEstuvieronEnUnaCancha() {
+		List<Jugador> jugadoresQueEstuvieronEnCancha=solanoStadiumConLuz.jugadoresQueEstuvieronAhi();
+		Assert.assertNotNull(jugadoresQueEstuvieronEnCancha);
+		Assert.assertTrue(jugadoresQueEstuvieronEnCancha.contains(jugadorSemiProfesionalGallego));
+	}
+	
+	@Test
+	public void testQuePaletaUsoUnJugadorEnPartido() {
+		Assert.assertEquals(paletaWilsonRoja, reservaPrevia.quePaletaUso(jugadorSemiProfesionalGallego));
 	}
 
+	@Test
+	public void testDeQueColorEraLaCanchaEnUnPartido() {
+		Assert.assertEquals(azul, reservaPrevia.getColorCancha());
+	}
+	
+	@Test
+	public void testQueCanchasDisponiblesHayParaUnHorario() {
+		Assert.assertTrue(RepositorioCancha.buscarCanchasParaUnHorario(LocalDateTime.of(2019, Month.SEPTEMBER, 29, 18, 30))
+				.stream().anyMatch(cancha -> cancha.getId().compareTo(paddleLaPazSinLuz.getId())==0));
+	}
 }

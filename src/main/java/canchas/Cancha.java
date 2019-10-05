@@ -3,6 +3,7 @@ package canchas;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -74,5 +75,11 @@ public class Cancha extends PersistentEntity {
 
 	public void setTieneIluminacion(Boolean tieneIluminacion) {
 		this.tieneIluminacion = tieneIluminacion;
+	}
+
+	public List<Jugador> jugadoresQueEstuvieronAhi() {
+		List<Jugador> jugadoresQueEstuvieron=new ArrayList<Jugador>();
+		getReservas().stream().flatMap(reserva -> reserva.getInscripciones().stream()).forEach(inscripcion -> jugadoresQueEstuvieron.add(inscripcion.getJugador()));
+		return jugadoresQueEstuvieron;
 	}
 }

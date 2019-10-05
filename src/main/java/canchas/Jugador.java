@@ -1,8 +1,6 @@
 package canchas;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -10,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.Query;
-
-import database.EntityManagerHelper;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "categoria")
@@ -86,20 +81,4 @@ public abstract class Jugador extends PersistentEntity {
 		this.paleta = paletaB;
 	}
 
-	public List<Cancha> enQueCanchasEstuvo() {
-		EntityManagerHelper.withTransaction(() -> {
-			List<Cancha> canchas=new ArrayList<Cancha>();
-			Query buscarCanchas=EntityManagerHelper
-					.createQuery("SELECT can.id FROM Inscripcion ins, Reserva res, Cancha can "
-							+" WHERE ins.reserva.id=res.id AND res.cancha.id=can.id AND ins.jugador=?")
-					.setParameter(1, this.getId());
-			List<Long> idsCanchasQueEstuvo=buscarCanchas.getResultList();
-			for (Long idCancha : idsCanchasQueEstuvo) {
-				Cancha canchaQueEstuvo=EntityManagerHelper.getEntityManager().find(Cancha.class,idCancha);
-				canchas.add(canchaQueEstuvo);
-			}
-			return canchas;
-		});
-		return new ArrayList<Cancha>();
-	}
 }

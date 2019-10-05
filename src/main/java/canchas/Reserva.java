@@ -2,6 +2,7 @@ package canchas;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -62,6 +63,14 @@ public class Reserva extends PersistentEntity{
 
 	public void setColorCancha(Color colorCancha) {
 		this.colorCancha = colorCancha;
+	}
+
+	public Paleta quePaletaUso(Jugador unJugador) {
+		return getInscripciones().stream()
+				.filter(inscripcion -> 
+					inscripcion.getJugador().getId().compareTo(unJugador.getId())==0)
+				.collect(Collectors.toList())
+				.get(0).getPaleta();
 	}
 
 }
